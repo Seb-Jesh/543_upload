@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/tables.css">
+    <title>Recipients List</title>
+</head>
+<body>
+    <h2>AIRTIME LIST</h2>
+    <table id="select-data" class="table1">
+        <thead>
+            <tr>
+                <th class="l-align">Name</th>
+                <th class="c-align">Phone</th>
+                <th class="c-align">Amount</th>
+                <th class="l-align">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr {{#if status}}class="danger"{{/if}}>
+                <td class="l-align">{{name}}</td>
+                <td class="r-align">{{phone}}</td>
+                <td class="r-align">{{amount}}</td>
+                <td class="l-align">{{status}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="footer">
+        <div class="stats">
+            <p>Total Count: {{count}}</p>
+            <p>Total: ZMW {{sum}}</p>    
+        </div>
+        <div class="stats">
+            <p>Valid Rows Count: {{valid_rows_count}}</p>
+            <p>Total: ZMW {{sum_valid}}</p>
+        </div>
+    </div>
+    <div class="content">
+        <p>Batch load file has been downloaded to your computer</p>
+    </div>
+    <div class="dload">
+        <form action="/">
+            <button type="submit">Close</button>
+        </form>
+    </div>
+
+</body>
+</html>
