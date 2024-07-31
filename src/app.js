@@ -1,6 +1,6 @@
-const path = require('path');
 const express = require('express');
 const reader = require('xlsx');
+const path = require('path');
 const fs = require('fs');
 
 const app = express();
@@ -63,10 +63,10 @@ app.post('/upload', upload.single('filename'), (req,res) => {
         return Number(amount)
     })
 
-    const validPrefix = ['97', '96', '95', '77', '76', '75', '21']
-    function checkIfPhoneStartsWith(str, validPrefix) {
-        return validPrefix.some(validPrefix => str.startsWith(validPrefix));
-      }
+    // const validPrefix = ['97', '96', '95', '77', '76', '75', '21']
+    // function checkIfPhoneStartsWith(str, validPrefix) {
+    //     return validPrefix.some(validPrefix => str.startsWith(validPrefix));
+    //   }
     function product543(msisdn) {
         if(msisdn.startsWith(97) || msisdn.startsWith(77)) {
             return 'Airtel'
@@ -78,11 +78,9 @@ app.post('/upload', upload.single('filename'), (req,res) => {
             return 'Zamtel'
         }
     }
-    // Reading the uploaded file 
+    // Reading the uploaded file 2
     const file = reader.readFile(req.file.path) 
-    
     const csvFile = req.file.path.split('/')[1].split('.')[0]
-    
     // const sheets = file.SheetNames    
     
     const data = reader.utils.sheet_to_json( 
@@ -99,9 +97,13 @@ app.post('/upload', upload.single('filename'), (req,res) => {
         }        
     });
     rows_with_phone.forEach((item) => {
-        if(!checkIfPhoneStartsWith(item.phone, validPrefix) || item.phone.length !== 9) {
-                item.status = "Invalid number"
-            }
+        // if(!checkIfPhoneStartsWith(item.phone, validPrefix) || item.phone.length !== 9) {
+        //     item.status = "Invalid number"
+        // }
+        const validPrefix = ['97', '96', '95', '77', '76', '75', '21']
+        if(validPrefix.indexOf(item.phone.substring(0,2)) < 0) {
+            item.status = "Invalid number";
+        }
     })
     const valid_rows = rows_with_phone.filter(row => row.status !== "Invalid number")
     const rows = valid_rows.map(row => ({
@@ -132,12 +134,12 @@ app.post('/upload', upload.single('filename'), (req,res) => {
     // var output_file_name = "../../../../Downloads/batch.csv";
     // Extract Data (create a workbook object from the table)
     const worksheet = reader.utils.json_to_sheet(rows);
-    var paysmart_file_name = `../../../../Downloads/${csvFile}.csv`
+    var paysmart_file_name = `../csv_downloads/${csvFile}.csv`
     var stream = reader.stream.to_csv(worksheet);
     stream.pipe(fs.createWriteStream(paysmart_file_name));
     
     const worksheet2 = reader.utils.json_to_sheet(rows_paysmart);
-    var cgrate_file_name = `../../../../Downloads/cgrate_lists/${csvFile}.xlsx`
+    var cgrate_file_name = `../cgrate_lists/${csvFile}.xlsx`
     var stream = reader.stream.to_csv(worksheet2);
     stream.pipe(fs.createWriteStream(cgrate_file_name));
 
