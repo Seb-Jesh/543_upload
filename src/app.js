@@ -63,10 +63,6 @@ app.post('/upload', upload.single('filename'), (req,res) => {
         return Number(amount)
     })
 
-    // const validPrefix = ['97', '96', '95', '77', '76', '75', '21']
-    // function checkIfPhoneStartsWith(str, validPrefix) {
-    //     return validPrefix.some(validPrefix => str.startsWith(validPrefix));
-    //   }
     function product543(msisdn) {
         if(msisdn.startsWith(97) || msisdn.startsWith(77)) {
             return 'Airtel'
@@ -126,12 +122,6 @@ app.post('/upload', upload.single('filename'), (req,res) => {
     const sum_valid = valid_rows.reduce((accumulator, currentValue) => accumulator + currentValue.amount,
     0,);
 
-    // Printing data 
-    // console.log(data)
-    // const workbook = reader.utils.book_new();
-    // reader.utils.book_append_sheet(workbook, worksheet, "Airtime");
-    // reader.writeFile(workbook, "upload.xlsx");
-    // var output_file_name = "../../../../Downloads/batch.csv";
     // Extract Data (create a workbook object from the table)
     const worksheet = reader.utils.json_to_sheet(rows);
     var paysmart_file_name = `../csv_downloads/${csvFile}.csv`
