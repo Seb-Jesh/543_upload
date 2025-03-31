@@ -103,6 +103,11 @@ h2{
     background-color: #690fc3;
 }
 
+.dload a {
+    text-decoration: none;
+    color: white;
+}
+
 .danger {
     background-color: rgb(197, 104, 104);
 }
