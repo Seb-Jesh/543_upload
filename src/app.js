@@ -22,7 +22,7 @@ import multer from "multer";
 
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
-    destination: (_, _, cb) => {
+    destination: (_, _file, cb) => {
       cb(null, 'upload');
     },
     filename: (_, file, cb) => {
@@ -99,6 +99,7 @@ app.post('/upload', upload.single('filename'), async (req,res) => {
        // Construct arrays for each service
         const valid_rows = rows_with_phone.filter(row => row.status !== "Invalid row");
         // airtime_rows = rows_with_phone.filter(row => row.service.toLowerCase() === "airtime");
+        airtime_rows = valid_rows
     
         // const rows_paysmart = valid_rows.map(row => ({
         //     reference: row.name, 
@@ -106,7 +107,7 @@ app.post('/upload', upload.single('filename'), async (req,res) => {
         //     amount: row.amount
         // }))
         
-        const rows_cgrate = rows_with_phone.map(row => ({
+        const rows_cgrate = airtime_rows.map(row => ({
             ServiceProvider: row.ServiceProvider,
             VoucherType: 'Direct-Topup',
             Recipient: '26' + row.phone, 
@@ -115,7 +116,7 @@ app.post('/upload', upload.single('filename'), async (req,res) => {
        
         count = rows_with_phone.length
         sum = rows_with_phone.reduce((accumulator, currentValue) => accumulator + currentValue.amount, 0,);
-        airtime_sum = rows_with_phone.reduce((accumulator, currentValue) => accumulator + currentValue.amount, 0,);
+        airtime_sum = airtime_rows.reduce((accumulator, currentValue) => accumulator + currentValue.amount, 0,);
     
         valid_rows_count = valid_rows.length
         sum_valid = valid_rows.reduce((accumulator, currentValue) => accumulator + currentValue.amount,
@@ -130,7 +131,7 @@ app.post('/upload', upload.single('filename'), async (req,res) => {
     
         date = Date.now();
         nowDate = new Date(date).toISOString().slice(0,10)
-        res.render('myList', {airtime: rows_with_phone, data: data_rows, liquid: liquid_rows, momo: momo_rows, zesco: zesco_rows, count, valid_rows_count, sum, airtime_sum, data_sum, liquid_sum, momo_sum, zesco_sum, sum_valid});
+        res.render('myList', {airtime: airtime_rows, data: data_rows, liquid: liquid_rows, momo: momo_rows, zesco: zesco_rows, count, valid_rows_count, sum, airtime_sum, data_sum, liquid_sum, momo_sum, zesco_sum, sum_valid});
     }    
 
     fs.unlink(req.file.path,
@@ -174,7 +175,7 @@ app.get('/quote', (_,res) => {
 });
 
 app.get('/list', (_,res) => {
-    res.render('myList', {airtime: rows_with_phone, data: data_rows, liquid: liquid_rows, momo: momo_rows, zesco: zesco_rows, count, valid_rows_count, sum, airtime_sum, data_sum, liquid_sum, momo_sum, zesco_sum, sum_valid});
+    res.render('myList', {airtime: airtime_rows, data: data_rows, liquid: liquid_rows, momo: momo_rows, zesco: zesco_rows, count, valid_rows_count, sum, airtime_sum, data_sum, liquid_sum, momo_sum, zesco_sum, sum_valid});
 });
 
 app.get('*', (_,res) => {
