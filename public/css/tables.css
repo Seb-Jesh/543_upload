@@ -6,7 +6,7 @@
 body{
     font-family: Helvetica;
     -webkit-font-smoothing: antialiased;
-    background: rgba( 71, 147, 227, 1);
+    background: #4793e3;
 }
 
 h2{
@@ -15,7 +15,7 @@ h2{
     text-transform: uppercase;
     letter-spacing: 1px;
     color: white;
-    padding: 30px 0;
+    padding: 5px 0;
 }
 
 .table1 {
@@ -103,8 +103,22 @@ h2{
     background-color: #690fc3;
 }
 
+.dload a {
+    text-decoration: none;
+    color: var(--color-primary-10);
+  }
+  
+  .dload a:hover,
+  .dload a.active {
+    color: var(--color-secondary-200);
+  }
+
 .danger {
-    background-color: rgb(197, 104, 104);
+    color: red;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 .content {

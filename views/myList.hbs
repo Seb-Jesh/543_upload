@@ -7,7 +7,36 @@
     <title>Recipients List</title>
 </head>
 <body>
-    <h2>AIRTIME LIST</h2>
+     {{#if airtime}}<h2>AIRTIME LIST</h2>
+    <table id="select-data" class="table1">
+        <thead>
+            <tr>
+                <th class="l-align">Name</th>
+                <th class="c-align">Phone</th>
+                <th class="c-align">Amount</th>
+                <th class="l-align">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each airtime}}
+            <tr {{#if status}}class="danger"{{/if}}>
+                <td class="l-align">{{name}}</td>
+                <td class="r-align">{{phone}}</td>
+                <td class="r-align">{{amount}}</td>
+                <td class="l-align">{{status}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td class="l-align bold">TOTAL AIRTIME</td>
+                <td class="r-align"></td>
+                <td class="r-align bold">{{airtime_sum}}</td>
+                <td class="l-align"></td>
+            </tr>
+        </tbody>
+    </table>
+     {{/if}}
+
+    {{#if data}}<h2>MOBILE DATA LIST</h2>
     <table id="select-data" class="table1">
         <thead>
             <tr>
@@ -26,26 +55,125 @@
                 <td class="l-align">{{status}}</td>
             </tr>
             {{/each}}
+            <tr>
+                <td class="l-align bold">TOTAL MOBILE DATA</td>
+                <td class="r-align"></td>
+                <td class="r-align bold">{{data_sum}}</td>
+                <td class="l-align"></td>
+            </tr>
         </tbody>
     </table>
+    {{/if}}
+
+    {{#if liquid}}<h2>LIQUID DATA LIST</h2>
+    <table id="select-data" class="table1">
+        <thead>
+            <tr>
+                <th class="l-align">Name</th>
+                <th class="c-align">Phone</th>
+                <th class="c-align">Amount</th>
+                <th class="l-align">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each liquid}}
+            <tr {{#if status}}class="danger"{{/if}}>
+                <td class="l-align">{{name}}</td>
+                <td class="r-align">{{phone}}</td>
+                <td class="r-align">{{amount}}</td>
+                <td class="l-align">{{status}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td class="l-align bold">TOTAL LIQUID DATA</td>
+                <td class="r-align"></td>
+                <td class="r-align bold">{{liquid_sum}}</td>
+                <td class="l-align"></td>
+            </tr>
+        </tbody>
+    </table>
+    {{/if}}
+
+    {{#if zesco}}<h2>ZESCO UNITS LIST</h2>
+    <table id="select-data" class="table1">
+        <thead>
+            <tr>
+                <th class="l-align">Name</th>
+                <th class="c-align">Meter #</th>
+                <th class="c-align">Amount</th>
+                <th class="l-align">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each zesco}}
+            <tr {{#if status}}class="danger"{{/if}}>
+                <td class="l-align">{{name}}</td>
+                <td class="r-align">{{phone}}</td>
+                <td class="r-align">{{amount}}</td>
+                <td class="l-align">{{status}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td class="l-align bold">TOTAL ZESCO</td>
+                <td class="r-align"></td>
+                <td class="r-align bold">{{zesco_sum}}</td>
+                <td class="l-align"></td>
+            </tr>
+        </tbody>
+    </table>
+    {{/if}}
+
+    {{#if momo}}<h2>MOBILE MONEY LIST</h2>
+    <table id="select-data" class="table1">
+        <thead>
+            <tr>
+                <th class="l-align">Name</th>
+                <th class="c-align">Phone</th>
+                <th class="c-align">Amount</th>
+                <th class="l-align">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each momo}}
+            <tr {{#if status}}class="danger"{{/if}}>
+                <td class="l-align">{{name}}</td>
+                <td class="r-align">{{phone}}</td>
+                <td class="r-align">{{amount}}</td>
+                <td class="l-align">{{status}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td class="l-align bold">TOTAL MOBILE MONEY</td>
+                <td class="r-align"></td>
+                <td class="r-align bold">{{momo_sum}}</td>
+                <td class="l-align"></td>
+            </tr>
+        </tbody>
+    </table>
+    {{/if}}
     <div class="footer">
         <div class="stats">
-            <p>Total Count: {{count}}</p>
+            <p>Total Row Count: {{count}}</p>
             <p>Total: ZMW {{sum}}</p>    
         </div>
         <div class="stats">
             <p>Valid Rows Count: {{valid_rows_count}}</p>
-            <p>Total: ZMW {{sum_valid}}</p>
+            <p>Valid Rows Total: ZMW {{sum_valid}}</p>
         </div>
     </div>
-    <div class="content">
-        <p>Batch load file has been downloaded to your computer</p>
-    </div>
-    <div class="dload">
-        <form action="/">
-            <button type="submit">Close</button>
+    <div class="dload nav-item">
+        <form action="">
+        <button><a href="/">Close</a></button>
+        <button><a href="/excel">Download excel</a></button>
+        <button onclick="myFunction()">543</button>
+        <button><a href="/order">Create Order</a></button>
+        <button><a href="/quote">Get Quote</a></button>
         </form>
     </div>
-
+    <script>
+        function myFunction() {
+            window.open("https://online.543.co.zm/login");
+        }
+    </script>
 </body>
 </html>
