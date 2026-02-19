@@ -7,6 +7,22 @@
     <title>Recipients List</title>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1>📊 Excel Sanitizer</h1>
+        </div>
+        <div class="navbar-user">
+            <div class="user-info">
+                <div class="user-details">
+                    <span class="user-name">{{user.username}}</span>
+                    <span class="user-role">{{user.role}}</span>
+                </div>
+            </div>
+            <form action="/logout" method="POST" style="display: inline;">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
      {{#if airtime}}<h2>AIRTIME LIST</h2>
     <table id="select-data" class="table1">
         <thead>
@@ -20,7 +36,7 @@
         <tbody>
             {{#each airtime}}
             <tr {{#if status}}class="danger"{{/if}}>
-                <td class="l-align">{{name}}</td>
+                <td class="l-align">{{#if name}}{{name}}{{else}}{{reference}}{{/if}}</td>
                 <td class="r-align">{{phone}}</td>
                 <td class="r-align">{{amount}}</td>
                 <td class="l-align">{{status}}</td>
@@ -165,15 +181,7 @@
         <form action="">
         <button><a href="/">Close</a></button>
         <button><a href="/excel">Download excel</a></button>
-        <button onclick="myFunction()">543</button>
-        <button><a href="/order">Create Order</a></button>
-        <button><a href="/quote">Get Quote</a></button>
         </form>
     </div>
-    <script>
-        function myFunction() {
-            window.open("https://online.543.co.zm/login");
-        }
-    </script>
 </body>
 </html>

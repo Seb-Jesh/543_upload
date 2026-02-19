@@ -28,8 +28,18 @@ validate.sanitizeLiquid = ((phone) => {
     return phone
 })
 
+validate.isValidLiquid = ((phone) => {
+    phone = /^\d{12}$/.test(phone);
+    return phone
+})
+
 validate.sanitizeZesco = ((phone) => {
     phone = phone.toString().replace(/\D/g,'');
+    return phone
+})
+
+validate.isValidZesco = ((phone) => {
+    phone = /^\d{11}$/.test(phone);
     return phone
 })
 
@@ -40,6 +50,9 @@ validate.sanitizeAmount = (amount => {
 });
 
 validate.product = (msisdn) => {
+    if(msisdn.startsWith('098') || msisdn.startsWith('078') || msisdn.startsWith('058')) {
+        return 'ZedMobile'
+    }
     if(msisdn.startsWith('097') || msisdn.startsWith('077') || msisdn.startsWith('057')) {
         return 'Airtel'
     }
